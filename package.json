@@ -1,0 +1,27 @@
+{
+  "name": "backend_restaurant",
+  "version": "1.0.0",
+  "description": "backend RESTAPI para un restaurant, proyecto desarrollado para la asignatura de taller de proyectos integrados de analisis 2021",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "index.js"
+  },
+  "keywords": [
+    "backend",
+    "restapi",
+    "sequelize",
+    "mysql",
+    "express"
+  ],
+  "author": "Javiera Burgos",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5"
+  }
+}
