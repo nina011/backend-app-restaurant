@@ -3,6 +3,6 @@ module.exports = {
         username:'javi',
         password: 'Javi123@',
         database:'restaurant',
-        host:'localhost'
+        host:'127.0.0.1'
     }
 }
