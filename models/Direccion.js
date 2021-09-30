@@ -12,14 +12,15 @@ Direccion.init({
                 args: true,
                 msg: 'La dirección no puede estar vacía'
             },
-            isAlpha:{
-                args: true,
-                msg:'La ciudad solo debe contener letras'
-            },
             len:{
                 args:[4,15],
                 msg:'La ciudad debe contener entre 4 y 15 caracteres'
-            }
+            },
+            isLetterSpace(str){
+                const reg =  /^[a-zA-Z\s]*$/
+ 
+                if(!reg.test(str)) throw Error('El nombre pude contener solo letras')
+             }
         }
     },
     calle_dr:{
@@ -30,14 +31,15 @@ Direccion.init({
                args: true,
                msg: 'La calle no puede estar vacía'
            },
-           isAlpha:{
-                args: true,
-                msg:'La calle solo debe contener letras'
-           },
             len:{
                 args:[5,50],
                 msg:'La calle debe contener entre 5 y 50 caracteres'
-        }
+           },
+           isLetterSpace(str){
+            const reg =  /^[a-zA-Z\s]*$/
+
+            if(!reg.test(str)) throw Error('El nombre pude contener solo letras')
+         }
        } 
     },
     numero_dr:{

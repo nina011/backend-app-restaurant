@@ -29,15 +29,12 @@ exports.nuevaDireccion = async(req,res,next) =>{
 
 
 
-exports.listaClientes = async(req, res, next) =>{
+exports.listaDireccionesClientes = async(req, res, next) =>{
 
-    
         const clientes =  await  Direccion.findAll({
             include:'cliente'
          })
-      
          
          res.status(200).json(clientes)
- 
-    
  }
+

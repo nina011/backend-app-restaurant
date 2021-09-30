@@ -5,14 +5,25 @@ const direccionesController = require('../controllers/direccionesController');
 
 module.exports = () =>{
 
+    // *** CLIENTES ***
     // agregar un cliente
     router.post('/clientes', clientesController.nuevoCliente);
-
-    router.get('/direccion',direccionesController.listaClientes)
+    // traer lista de clientes
     router.get('/clientes',clientesController.listaClientes)
+    // traer 1 cliente
+    router.get('/cliente', clientesController.obtenerUnCliente);
+    // modificar un cliente
+    router.put('/buscar-cliente/:id', clientesController.modificarCliente);
+    // eliminacion logica cliente
 
+
+
+    // *** DIRECCIONES ***
+
+    router.get('/direccion',direccionesController.listaDireccionesClientes)
     router.post('/direccion', direccionesController.nuevaDireccion);
 
+    // 
    
 
     return router;
