@@ -15,7 +15,7 @@ Cliente.init({
             },
             isAlpha: {
                 args: true,
-                msg: 'Solo letras'
+                msg: 'El nombre debe tener solo letras'
             },
             len: {
                 args: [3, 15],
@@ -45,7 +45,6 @@ Cliente.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
-           
             notEmpty: {
                 args: true,
                 msg: 'Email no puede estar vacío'
