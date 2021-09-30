@@ -13,9 +13,9 @@ module.exports = () =>{
     // traer 1 cliente
     router.get('/cliente', clientesController.obtenerUnCliente);
     // modificar un cliente
-    router.put('/buscar-cliente/:id', clientesController.modificarCliente);
+    router.put('/modificar-cliente/:id', clientesController.modificarCliente);
     // eliminacion logica cliente
-
+    router.patch('/eliminar-cliente/:id',clientesController.eliminarCliente);
 
 
     // *** DIRECCIONES ***

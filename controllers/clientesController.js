@@ -25,11 +25,15 @@ exports.nuevoCliente = async (req, res, next) => {
     }
 }
 
-// trae todos los clientes
+// trae todos los clientes activos
 exports.listaClientes = async(req, res, next) =>{
 
     try{
         const clientes =  await  Cliente.findAll({
+            where:{
+                estado_cl: true
+            }
+         },{
             include:'direccion'
          })   
          
@@ -37,6 +41,7 @@ exports.listaClientes = async(req, res, next) =>{
     }catch(e){
         console.log(e);
         res.status(404).json({message: 'hubo un error'})
+        next();
     }
 }
 
@@ -57,6 +62,7 @@ exports.obtenerUnCliente = async(req, res, next) =>{
         
     }catch(e){
         console.log(e);
+        next();
     }
 }
 
@@ -65,6 +71,7 @@ exports.modificarCliente = async(req, res, next) =>{
 
     const { id } = req.params;
     const { nombreCli, apellidoCli, emailCli, telefonoCli } = req.body;
+
     try{
         const modCli = await Cliente.update({
             nombre_cl: nombreCli, 
@@ -86,3 +93,26 @@ exports.modificarCliente = async(req, res, next) =>{
         
     }
 }
+
+// eliminar un cliente
+exports.eliminarCliente = async(req, res, next) =>{
+
+    const { id } = req.params;
+    
+    try{
+        const eliminarCliente = await Cliente.update({
+            estado_cl: false
+        },{
+            where:{
+                id: id
+            }
+        })
+
+        res.status(200).json({message: 'Se ha eliminado al cliente'})
+
+    }catch(e){
+        res.status(400).json({message: 'no pudo ser procesada la solicitud'})
+    }
+
+}
+

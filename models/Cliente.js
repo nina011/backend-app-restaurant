@@ -76,6 +76,21 @@ Cliente.init({
                 }
             }
         }
+    },
+    estado_cl:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        validate:{
+            notEmpty:{
+                args: true,
+                msg: 'El parámetro no puede estar vacío'
+            },
+            isBoolean:{
+                args: true, 
+                msg: 'no permitido'
+            }
+        }
+
     }
 },
 {
