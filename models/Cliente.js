@@ -90,7 +90,6 @@ Cliente.init({
                 msg: 'no permitido'
             }
         }
-
     }
 },
 {

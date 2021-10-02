@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const clientesController = require('../controllers/clientesController');
 const direccionesController = require('../controllers/direccionesController');
-
+const usuariosController = require('../controllers/usuariosController');
 module.exports = () =>{
 
     // *** CLIENTES ***
@@ -19,12 +19,16 @@ module.exports = () =>{
 
 
     // *** DIRECCIONES ***
-
-    router.get('/direccion',direccionesController.listaDireccionesClientes)
+    // obtener todas las direcciones
+    router.get('/direccion',direccionesController.listaDireccionesClientes);
+    // agregar una nueva direccion 
     router.post('/direccion', direccionesController.nuevaDireccion);
 
-    // 
-   
+    // *** ADMIN ***
+    // registrarse
+    router.post('/admin/registrarse', usuariosController.registrarUsuario);
+   // iniciar sesion
+
 
     return router;
 }

@@ -112,6 +112,7 @@ exports.eliminarCliente = async(req, res, next) =>{
 
     }catch(e){
         res.status(400).json({message: 'no pudo ser procesada la solicitud'})
+        next()
     }
 
 }
