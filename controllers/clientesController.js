@@ -4,6 +4,7 @@ const db = require('../db/config')
 const relaciones = require('../db/relaciones');
 
 //crear un nuevo cliente
+// req.body de clientes llegan todos con nombres distintos
 exports.nuevoCliente = async (req, res, next) => {
 
     try{

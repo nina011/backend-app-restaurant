@@ -3,6 +3,9 @@ const router = express.Router();
 const clientesController = require('../controllers/clientesController');
 const direccionesController = require('../controllers/direccionesController');
 const usuariosController = require('../controllers/usuariosController');
+
+
+
 module.exports = () =>{
 
     // *** CLIENTES ***
@@ -28,7 +31,7 @@ module.exports = () =>{
     // registrarse
     router.post('/admin/registrarse', usuariosController.registrarUsuario);
    // iniciar sesion
-
+    router.post('/admin/iniciar-sesion', usuariosController.iniciarSesion);
 
     return router;
 }
