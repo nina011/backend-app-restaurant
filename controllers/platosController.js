@@ -102,6 +102,8 @@ exports.eliminarPlato = async(req, res) =>{
                 id:id
             }
         })
+
+        res.status(200).json({ mensaje: 'Se ha eliminado el plato'})
     }catch(e){
         console.log(e);
         res.status(400).json({mensaje: 'hubo un error'})
