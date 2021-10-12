@@ -62,6 +62,7 @@ Direccion.init({
     },
     num_depto_dr:{
         type: DataTypes.STRING,
+        defaultValue:'N/A',
         validate:{
             len:{
                 args:[1,10],

@@ -4,7 +4,7 @@ const clientesController = require('../controllers/clientesController');
 const direccionesController = require('../controllers/direccionesController');
 const usuariosController = require('../controllers/usuariosController');
 const platosController = require('../controllers/platosController');
-
+const pedidosController = require('../controllers/pedidosController');
 
 module.exports = () =>{
 
@@ -47,6 +47,8 @@ module.exports = () =>{
     
     //** PEDIDOS  **
     //ingresar un pedido
+    router.post('/pedidos/nuevo', pedidosController.nuevoPedido);
+    
     //obtener todos los pedidos
     // obtener un solo pedido
     // actualizar un pedido
