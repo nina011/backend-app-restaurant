@@ -48,12 +48,14 @@ module.exports = () =>{
     //** PEDIDOS  **
     //ingresar un pedido
     router.post('/pedidos/nuevo', pedidosController.nuevoPedido);
-    
     //obtener todos los pedidos
+    router.get('/pedidos/pedidos', pedidosController.obtenerTodosLosPedidos);
     // obtener un solo pedido
+    router.get('/pedidos/pedido', pedidosController.obtenerUnSoloPedido)
     // actualizar un pedido
+    router.patch('/pedidos/modpedido/:id', pedidosController.modificarUnPedido);
     // eliminar un pedido
-
+    router.patch('/pedidos/elpedido/:id', pedidosController.eliminarUnPedido);
     
     return router;
 }
