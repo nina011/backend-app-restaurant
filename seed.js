@@ -34,22 +34,38 @@ const direcciones = [
 
 ];
 
+const pedidos = [
+  { hora_pd: '13:30', fecha_pd: '2021-10-10', clienteId:1 },
+  { hora_pd: '15:00', fecha_pd: '2021-10-10', clienteId:2 },
+  { hora_pd: '14:15', fecha_pd: '2021-11-10', clienteId:3 },
+  { hora_pd: '16:10', fecha_pd: '2021-12-10', clienteId:4 },
+
+];
+
+const platos_pedidos = [
+  { pedidoId: 1, platoId: 1, cantidad_pp: 1},
+  { pedidoId: 1, platoId: 2, cantidad_pp: 1},
+  { pedidoId: 2, platoId: 2, cantidad_pp:2},
+  { pedidoId: 3, platoId: 3, cantidad_pp: 2},
+  { pedidoId: 4, platoId: 3, cantidad_pp: 1},
+  { pedidoId: 4, platoId: 4, cantidad_pp: 1}
+];
+
 
 
 sequelize.sync({force: false}).then(()=>{
     console.log('conexion en seed');
 }).then(() =>{
 
-    // platos.forEach(pl => Plato.create(pl))
-    // clientes.forEach(cl => Cliente.create(cl))
-    // direcciones.forEach(dr => Direccion.create(dr))
-
+    platos.forEach(pl => Plato.create(pl))
+    clientes.forEach(cl => Cliente.create(cl))
+    direcciones.forEach(dr => Direccion.create(dr))
+    
 
 }).then( () =>{
 
-    const buscarPlatos = Plato.findAll().then(respuesta => { 
-        // console.log(respuesta.JSON());
-    })
+  pedidos.forEach( pd => Pedido.create(pd))
+  platos_pedidos.forEach(pp => Platos_Pedidos.create(pp))
 
     // let crearUnPedido = Platos_Pedidos.create({
     //   cantidad_pp:2,

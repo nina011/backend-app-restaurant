@@ -10,11 +10,24 @@ exports.nuevoPedido = async(req, res) =>{
     const { platos } = req.body;
 
     try{
+
+        // calcular el precio total 
+        const longitud = platos.length;
+        let precio_total = 0;
+        let i = 0;
+
+        while(i < longitud){
+            let precioPlato = await Plato.findByPk(platos[i].id)
+            precio_total = precio_total + precioPlato.precio_pl;          
+            i++;
+        }
+
+
         // primero crear un pedido
         const nuevoPedido = await Pedido.create({
             hora_pd: horaPd,
             fecha_pd: fechaPd,
-            precio_total_pd: precioT,
+            precio_total_pd: precio_total,
             clienteId: idCl
         })
         
@@ -64,7 +77,10 @@ exports.obtenerTodosLosPedidos = async(req, res) =>{
                     as: 'platos_pedidos',
                     attributes: ['cantidad_pp']
                 }
-            }]    
+            }],
+            where:{
+                estado_pd: true
+            }    
         })
 
         res.status(200).json(obtenerPedidos);
@@ -77,7 +93,7 @@ exports.obtenerTodosLosPedidos = async(req, res) =>{
 exports.obtenerUnSoloPedido = async(req, res) =>{
     
     const { id } = req.body;
-
+    // console.log(id);
     try{
         const obtenerUnPedido = await Pedido.findOne({
 
@@ -96,7 +112,7 @@ exports.obtenerUnSoloPedido = async(req, res) =>{
                 id: id
             }
         })
-
+        console.log(obtenerUnPedido);
         res.status(200).json(obtenerUnPedido);
 
     }catch(e){
@@ -108,9 +124,26 @@ exports.obtenerUnSoloPedido = async(req, res) =>{
 
 exports.modificarUnPedido = async(req, res) =>{
 
-
+    // hay que definir que vamos a modificar del pedido, agregar platos? quitar platos?
 }
 
 exports.eliminarUnPedido = async(req, res ) =>{
-    
+
+    const { id } = req.params;
+
+    try{
+
+        const obtenerPedido = await Pedido.update({
+
+            estado_pd: false
+        },{
+            where:{
+                id: id
+            }
+        })
+        res.json(obtenerPedido)
+
+    }catch(e){
+
+    }
 }

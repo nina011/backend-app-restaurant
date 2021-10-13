@@ -27,7 +27,7 @@ Pedido.init({
     },
     precio_total_pd: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: null,
         validate:{
             notEmpty: {
                 args: true,
