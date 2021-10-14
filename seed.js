@@ -7,6 +7,8 @@ const Cliente = require('./models/Cliente');
 const Direccion = require('./models/Direccion');
 
 
+  
+ 
 const platos = [
     { nombre_pl: 'completo', descripcion_pl:'delicioso completo con tomate y palta', 
       agregado_pl:'sin mayo', precio_pl: 3000 },
@@ -34,13 +36,29 @@ const direcciones = [
 
 ];
 
-const pedidos = [
-  { hora_pd: '13:30', fecha_pd: '2021-10-10', clienteId:1 },
-  { hora_pd: '15:00', fecha_pd: '2021-10-10', clienteId:2 },
-  { hora_pd: '14:15', fecha_pd: '2021-11-10', clienteId:3 },
-  { hora_pd: '16:10', fecha_pd: '2021-12-10', clienteId:4 },
+  // const pedidos = [
+  //   { hora_pd: '13:30', fecha_pd: Date.now(), clienteId:1 },
+  //   { hora_pd: '15:00', fecha_pd: Date.now(), clienteId:2 },
+  //   { hora_pd: '14:15', fecha_pd: Date.now(), clienteId:3 },
+  //   { hora_pd: '16:10', fecha_pd: Date.now(), clienteId:4 },
 
-];
+  // ];
+  // const pedidos = [
+  //   { hora_pd: '13:30', clienteId:1 },
+  //   { hora_pd: '15:00', clienteId:2 },
+  //   { hora_pd: '14:15', clienteId:3 },
+  //   { hora_pd: '16:10', clienteId:4 },
+
+  // ];
+
+  const pedidos = [
+    { clienteId:1 },
+    { clienteId:2 },
+    { clienteId:3 },
+    { clienteId:4 },
+
+  ];
+console.log(pedidos);
 
 const platos_pedidos = [
   { pedidoId: 1, platoId: 1, cantidad_pp: 1},
@@ -64,7 +82,14 @@ sequelize.sync({force: false}).then(()=>{
 
 }).then( () =>{
 
-  pedidos.forEach( pd => Pedido.create(pd))
+  
+
+  pedidos.forEach( pd => {
+
+  
+    Pedido.create(pd)
+  
+  })
   platos_pedidos.forEach(pp => Platos_Pedidos.create(pp))
 
     // let crearUnPedido = Platos_Pedidos.create({

@@ -4,29 +4,33 @@ const sequelize = require('../db/con')
 
 class Pedido extends Model {}
 
+let hoy = new Date()
+
 Pedido.init({
     hora_pd : {
-        type: DataTypes.STRING,
+        type: DataTypes.TIME,
+        defaultValue:hoy.getHours()+':'+hoy.getMinutes()+':'+hoy.getSeconds(),
         allowNull: false,
         validate:{
             notEmpty: {
                 args: true,
-                msg: 'El nombre no puede estar vacío'
+                msg: 'La hora no puede estar vacía'
             }
         }
     },
     fecha_pd: {
-        type: DataTypes.STRING,
+        type: DataTypes.BIGINT,
+        defaultValue: Date.now(),
         allowNull: false,
         validate:{
             notEmpty: {
                 args: true,
-                msg: 'El apellido no puede estar vacío'
+                msg: 'La fecha no puede estar vacío'
             }
         }
     },
     precio_total_pd: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         defaultValue: null,
         validate:{
             notEmpty: {
@@ -52,7 +56,8 @@ Pedido.init({
 },
 {
     sequelize,
-    modelName: 'pedidos'
+    modelName: 'pedidos',
+    timestamps: false
 })
 
 
