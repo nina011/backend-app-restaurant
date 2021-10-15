@@ -1,15 +1,53 @@
 const Plato = require('../models/Plato');
 const db = require('../db/config');
 
+const multer = require('multer');
+const shortid = require('shortid');
+
+console.log(__dirname);
+const configMulter = {
+    storage: fileStorage = multer.diskStorage({
+        destination: (req, file, next) =>{
+            next(null, '/home/nina/Documentos/VI semestre/taller integrado de analisis/backend_restaurant/public/uploads');
+        },
+        filename: (req, file, next) =>{
+            const extension = file.mimetype.split('/')[1];
+            next(null, `${shortid.generate()}.${extension}`)
+        }
+    }),
+    fileFilter(req, file, cb){
+        if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+            cb(null, true)
+        }else{
+            cb(new Error ('Formato no válido'))
+        }
+    }
+}
+const upload = multer(configMulter).single('img_pl');
+
+exports.subirImagen = (req, res, next) => {
+    upload(req, res, function(err){
+        if(err){
+            console.log(err);
+        }
+        return next();
+    })
+}
+
+
 exports.nuevoPlato = async(req, res) =>{
-    try{
-        console.log(req.body);
+
+    // leer la imagen
+  
+ 
+    try{   
+        console.log(req.file);
         const plato = await Plato.create({
             nombre_pl: req.body.nombrePl,
             descripcion_pl: req.body.descripPl,
             agregado_pl: req.body.agregadoPl,
             precio_pl: req.body.precioPl,
-            img_pl: req.body.imagen
+            img_pl: req.file.filename
         })
 
         res.status(201).json({mensaje: 'Se ha creado un nuevo plato'})
@@ -109,3 +147,6 @@ exports.eliminarPlato = async(req, res) =>{
         res.status(400).json({mensaje: 'hubo un error'})
     }
 }
+
+
+
