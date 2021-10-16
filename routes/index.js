@@ -35,7 +35,8 @@ module.exports = () =>{
 
     // ** PLATOS ***
     // ingresar plato nuevo
-    router.post('/platos/nuevoplato', platosController.nuevoPlato);
+    router.post('/platos/nuevoplato',
+     platosController.subirImagen, platosController.nuevoPlato);
     // obtener todos los platos
     router.get('/platos/platos', platosController.listaPlatos);
     // obtener un solo plato
@@ -44,10 +45,13 @@ module.exports = () =>{
     router.patch('/platos/modplato/:id', platosController.modificarPlato);
     // eliminar plato
     router.patch('/platos/elplato/:id', platosController.eliminarPlato);
+
     
     //** PEDIDOS  **
     //ingresar un pedido
-    router.post('/pedidos/nuevo', pedidosController.nuevoPedido);
+    router.post('/pedidos/nuevo', 
+    pedidosController.nuevoPedido,
+    pedidosController.enviarEmail);
     //obtener todos los pedidos
     router.get('/pedidos/pedidos', pedidosController.obtenerTodosLosPedidos);
     // obtener un solo pedido

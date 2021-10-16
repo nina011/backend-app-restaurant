@@ -1,9 +1,11 @@
 const Pedido = require('../models/Pedido');
 const Plato = require('../models/Plato');
 const Platos_Pedidos = require('../models/Platos_Pedidos');
+const Usuario = require('../models/Usuario');
 
+const transporter = require('../src/mailer');
 
-exports.nuevoPedido = async(req, res) =>{
+exports.nuevoPedido = async(req, res, next) =>{
 
     //
     const { horaPd, fechaPd, idCl, precioT } = req.body;
@@ -50,7 +52,7 @@ exports.nuevoPedido = async(req, res) =>{
         })
 
         res.status(200).json(nuevoPlatosPedido)
-        
+        next()
     }catch(e){
 
         console.log('hubo un error ',e);
@@ -59,7 +61,26 @@ exports.nuevoPedido = async(req, res) =>{
     }
 }
 
-
+exports.enviarEmail = async(req, res) =>{
+   
+    try{
+        
+      await transporter.sendMail({
+            from: '¡ Nuevo Pedido ! <random.tool.application@gmail.com>',
+            to: 'random.tool.application@gmail.com',
+            subject: 'Un cliente ha increado un nuevo pedido',
+            html: `
+            <h2>Admin, hay un nuevo pedido!</h2>
+            <br>
+            <p><b>Se ha ingresado un nuevo pedido para que lo revises
+            cuanto antes</b></p>
+            `
+        })
+        console.log('se envio el email');
+    }catch(e){
+        console.log('no se pudo enviar el email ',e);
+    }
+}
 
 
 exports.obtenerTodosLosPedidos = async(req, res) =>{
