@@ -1,12 +1,10 @@
 const express = require('express');
 const app = express();
 const sequelize = require('./db/con');
+const cors = require('cors');
+
 const routes = require('./routes/index');
 const PORT = 5000;
-
-app.get('/',(req, res) => {
-    res.send('hey')
-})
 
 // Middleware para llenar el req.body
 app.use(express.json());
@@ -15,6 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 // rutas
 app.use('/', routes());
 
+// cors
+app.use(cors());
 
 app.listen(PORT, () =>{
 
