@@ -10,20 +10,21 @@ module.exports = () =>{
 
     // *** CLIENTES ***
     // agregar un cliente
-    router.post('/clientes/newcliente', clientesController.nuevoCliente);
+    router.post('/clientes', clientesController.nuevoCliente);
     // traer lista de clientes
-    router.get('/clientes/clientes',clientesController.listaClientes)
+    router.get('/clientes',clientesController.listaClientes)
     // traer 1 cliente
-    router.get('/clientes/uncliente', clientesController.obtenerUnCliente);
+    router.get('/clientes/:id', clientesController.obtenerUnCliente);
     // modificar un cliente
-    router.put('/clientes/mod/:id', clientesController.modificarCliente);
+    router.put('/clientes/:id', clientesController.modificarCliente);
     // eliminacion logica cliente
-    router.patch('/clientes/el/:id',clientesController.eliminarCliente);
-
+    router.delete('/clientes/:id',clientesController.eliminarCliente);
+    // clientes con direccion
+    router.get('/direcciones-clientes', direccionesController.listaClientesDirecciones);
 
     // *** DIRECCIONES ***
     // obtener todas las direcciones
-    router.get('/direccion/direcciones',direccionesController.listaDireccionesClientes);
+    router.get('/direcciones',direccionesController.listaDireccionesClientes);
     // agregar una nueva direccion 
     router.post('/direccion/onedireccion', direccionesController.nuevaDireccion);
 

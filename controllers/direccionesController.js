@@ -31,10 +31,40 @@ exports.nuevaDireccion = async(req,res,next) =>{
 
 exports.listaDireccionesClientes = async(req, res, next) =>{
 
-        const clientes =  await  Direccion.findAll({
+        const direccion =  await  Direccion.findAll({
             include:'cliente'
          })
          
-         res.status(200).json(clientes)
+         res.status(200).json(direccion)
  }
 
+
+ exports.listaClientesDirecciones = async(req, res) => {
+
+    try{
+        const clientes = await Cliente.findAndCountAll({
+
+            attributes:['id','nombre_cl','apellido_cl','email_cl','telefono_cl'],
+            include:[{
+                model: Direccion, 
+                as: 'direccion',
+    
+                attributes:['ciudad_dr', 'calle_dr', 'numero_dr','num_depto_dr']
+            }],
+            where:{
+                estado_cl: true
+            }
+        })
+       
+        res.status(200).set({
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Expose-Headers': 'Content-Range',
+            'Content-Range':clientes.count
+        }).json(clientes.rows)
+        console.log(clientes.count);
+       
+        
+    }catch(e){
+        res.status(400).json({ mensaje: 'no se encontró'})
+    }
+ }

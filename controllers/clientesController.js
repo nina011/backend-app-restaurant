@@ -8,7 +8,7 @@ const relaciones = require('../db/relaciones');
 exports.nuevoCliente = async (req, res, next) => {
 
     try{
-
+        
         const { nombreCli, apellidoCli, emailCli, telefonoCli} = req.body ;
 
         const cliente =  await Cliente.create({
@@ -17,7 +17,7 @@ exports.nuevoCliente = async (req, res, next) => {
             email_cl: emailCli,
             telefono_cl: telefonoCli
         })
-        res.status(201).json({mensaje: 'Se ha creado un cliente nuevo'})
+        res.status(201).json(cliente)
 
     }catch(e){
         console.log();
@@ -30,15 +30,25 @@ exports.nuevoCliente = async (req, res, next) => {
 exports.listaClientes = async(req, res, next) =>{
 
     try{
-        const clientes =  await  Cliente.findAll({
+        const clientes =  await  Cliente.findAndCountAll({
             where:{
                 estado_cl: true
             }
          },{
             include:'direccion'
          })   
-         
-         res.status(200).json(clientes)
+
+         res.status(200).set({
+            'Content-Range': clientes.count
+         }).json(clientes.rows)
+
+         // con otro provider
+        //  res.status(200).set({
+        //     'Access-Control-Allow-Origin': '*',
+        //     'Access-Control-Expose-Headers': 'X-Total-Count',
+        //     'X-Total-Count': clientes.count
+        //  }).json(clientes.rows)
+
     }catch(e){
         console.log(e);
         res.status(404).json({message: 'hubo un error'})
@@ -48,14 +58,14 @@ exports.listaClientes = async(req, res, next) =>{
 
 // trae 1 solo cliente
 exports.obtenerUnCliente = async(req, res, next) =>{
-
-    const { email } = req.body;
+   
+    const { id } = req.params;
 
     try{
         
         const cliente = await Cliente.findOne({
             where: {
-                email_cl : email
+                id: id
             }
         });
 
@@ -69,22 +79,23 @@ exports.obtenerUnCliente = async(req, res, next) =>{
 
 // modificar por id
 exports.modificarCliente = async(req, res, next) =>{
-
+ 
     const { id } = req.params;
-    const { nombreCli, apellidoCli, emailCli, telefonoCli } = req.body;
-
+    const { nombreCli, apellidoCli, emailCli, telefonoCli} = req.body ;
+   
     try{
+
         const modCli = await Cliente.update({
-            nombre_cl: nombreCli, 
+            nombre_cl: nombreCli,
             apellido_cl: apellidoCli,
-            email_cl: emailCli, 
+            email_cl: emailCli,
             telefono_cl: telefonoCli
         },{
             where:{
                 id: id
             }
         });
-
+        
         res.status(200).json(modCli)
         
     }catch(e){
@@ -99,6 +110,7 @@ exports.modificarCliente = async(req, res, next) =>{
 exports.eliminarCliente = async(req, res, next) =>{
 
     const { id } = req.params;
+  
     
     try{
         const eliminarCliente = await Cliente.update({

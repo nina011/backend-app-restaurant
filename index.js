@@ -10,11 +10,27 @@ const PORT = 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// rutas
-app.use('/', routes());
+
+
 
 // cors
-app.use(cors());
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Expose-Headers: Content-Range')
+//     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+//     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+//     // res.header('Content-Range', 'post 0-20/20')
+//     // res.header('X-Total-Count: 20')
+//     next();
+// });
+
+// rutas
+app.use(cors({
+    exposedHeaders: ['Content-Range']
+}))
+app.use('/', routes());
+
 
 app.listen(PORT, () =>{
 
