@@ -52,10 +52,10 @@ const direcciones = [
   // ];
 
   const pedidos = [
-    { clienteId:1 },
-    { clienteId:2 },
-    { clienteId:3 },
-    { clienteId:4 },
+    { clienteId:1 , precio_total_pd: 8000, tipo_pd: 'Delivery'},
+    { clienteId:2 , precio_total_pd: 11000, tipo_pd: 'Delivery'},
+    { clienteId:3 , precio_total_pd: 12000, tipo_pd: 'Retiro'},
+    { clienteId:4 , precio_total_pd: 12000, tipo_pd: 'Retiro'}
 
   ];
 console.log(pedidos);
@@ -63,7 +63,7 @@ console.log(pedidos);
 const platos_pedidos = [
   { pedidoId: 1, platoId: 1, cantidad_pp: 1},
   { pedidoId: 1, platoId: 2, cantidad_pp: 1},
-  { pedidoId: 2, platoId: 2, cantidad_pp:2},
+  { pedidoId: 2, platoId: 2, cantidad_pp: 2},
   { pedidoId: 3, platoId: 3, cantidad_pp: 2},
   { pedidoId: 4, platoId: 3, cantidad_pp: 1},
   { pedidoId: 4, platoId: 4, cantidad_pp: 1}

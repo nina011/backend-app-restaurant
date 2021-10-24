@@ -52,6 +52,15 @@ Pedido.init({
                 msg: 'no permitido'
             }
         }
+    },
+    tipo_pd:{
+        type: DataTypes.STRING,
+        validate:{
+            notEmpty:{
+                args: true, 
+                msg:'El campo tipo de pedido '
+            }
+        }
     }
 },
 {

@@ -61,17 +61,20 @@ exports.nuevoPlato = async(req, res) =>{
 exports.listaPlatos = async(req, res) =>{
     
     try{
-        const platos = await Plato.findAll({
+        const platos = await Plato.findAndCountAll({
             where:{
                 estado_pl: true
             }
         })
 
-        res.status(200).json(platos)
+        res.status(200).set({
+             'Content-Range': platos.count
+            }).json(platos.rows)
     }catch(e){
         console.log('ha ocurrido un error');
         res.status(400).json({mensaje: 'hubo un error'})
     }
+
 }
 
 exports.obtenerUnPlato = async(req, res) =>{

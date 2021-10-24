@@ -22,7 +22,8 @@ Platos_Pedidos.init({
     
 },{
     sequelize, 
-    modelName:'platos_pedidos'
+    modelName:'platos_pedidos',
+    timestamps: false
 })
 
 module.exports = Platos_Pedidos;

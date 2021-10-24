@@ -7,23 +7,22 @@ const transporter = require('../src/mailer');
 
 exports.nuevoPedido = async(req, res, next) =>{
 
-    //
+    
     const { horaPd, fechaPd, idCl, precioT } = req.body;
     const { platos } = req.body;
 
     try{
 
         // calcular el precio total 
-        const longitud = platos.length;
+        // const longitud = platos.length;
         let precio_total = 0;
         let i = 0;
 
-        while(i < longitud){
+        while(i < platos.length){
             let precioPlato = await Plato.findByPk(platos[i].id)
             precio_total = precio_total + precioPlato.precio_pl;          
             i++;
         }
-
 
         // primero crear un pedido
         const nuevoPedido = await Pedido.create({
@@ -86,13 +85,13 @@ exports.enviarEmail = async(req, res) =>{
 exports.obtenerTodosLosPedidos = async(req, res) =>{
 
     try{
-        const obtenerPedidos = await Pedido.findAll({
+        const obtenerPedidos = await Pedido.findAndCountAll({
 
             include: [{
                 model: Plato,
                 as: 'platos',
     
-                attributes: ['id', 'nombre_pl', 'precio_pl'],
+                attributes: ['id', 'nombre_pl'],
                 through:{
                     model: Platos_Pedidos,
                     as: 'platos_pedidos',
@@ -104,7 +103,9 @@ exports.obtenerTodosLosPedidos = async(req, res) =>{
             }    
         })
 
-        res.status(200).json(obtenerPedidos);
+        res.status(200).set({
+            'Content-Range': obtenerPedidos.count
+           }).json(obtenerPedidos.rows)
     }catch(e){
         console.log('hubo un error ', e);
         res.status(400).json({mensaje: 'hubo un error en la solicitud'})
