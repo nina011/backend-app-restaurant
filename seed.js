@@ -55,7 +55,7 @@ const direcciones = [
   // ];
 
   const pedidos = [
-    { clienteId:1 , precio_total_pd: 8000, tipo_pd: 'Delivery'},
+    { clienteId:1 , precio_total_pd: 8000, tipo_pd: 'Delivery', fecha_pd:'2021-08-15'},
     { clienteId:2 , precio_total_pd: 11000, tipo_pd: 'Delivery'},
     { clienteId:3 , precio_total_pd: 12000, tipo_pd: 'Retiro'},
     { clienteId:4 , precio_total_pd: 12000, tipo_pd: 'Retiro'}
@@ -94,8 +94,6 @@ sequelize.sync({force: false}).then(()=>{
 
 }).then( () =>{
 
-  
-
   pedidos.forEach( pd => {
 
   
@@ -104,9 +102,6 @@ sequelize.sync({force: false}).then(()=>{
   })
   platos_pedidos.forEach(pp => Platos_Pedidos.create(pp))
 
-  
-
- 
 
 }).then(() =>{
 

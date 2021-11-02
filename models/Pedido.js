@@ -4,12 +4,12 @@ const sequelize = require('../db/con')
 
 class Pedido extends Model {}
 
-let hoy = new Date()
+let fecha = new Date()
 
 Pedido.init({
     hora_pd : {
         type: DataTypes.TIME,
-        defaultValue:hoy.getHours()+':'+hoy.getMinutes()+':'+hoy.getSeconds(),
+        defaultValue:fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds(),
         allowNull: false,
         validate:{
             notEmpty: {
@@ -19,8 +19,10 @@ Pedido.init({
         }
     },
     fecha_pd: {
-        type: DataTypes.BIGINT,
-        defaultValue: Date.now(),
+        type: DataTypes.DATEONLY,
+        defaultValue: fecha.getFullYear()+'-'+(fecha.getMonth() < 10?
+                     '0'+fecha.getMonth(): fecha.getMonth())+'-'
+                     +(fecha.getDay() < 10? '0'+fecha.getDay(): fecha.getDay()),
         allowNull: false,
         validate:{
             notEmpty: {
