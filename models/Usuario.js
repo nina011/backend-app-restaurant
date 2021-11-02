@@ -13,11 +13,11 @@ Usuario.init({
                 msg: 'El nombre no puede estar vacío'
             },
             len: {
-                args: [3, 15],
+                args: [3, 30],
                 msg: 'El nombre debe contener entre 3 y 15 caracteres'
             },
             isLetterSpace(str){
-                const reg =  /^[a-zA-Z\s]*$/
+                const reg =  /^[a-zA-ZÀ-ÿ\s]*$/
  
                 if(!reg.test(str)) throw Error('El nombre puede contener solo letras')
              }
@@ -48,10 +48,6 @@ Usuario.init({
             notEmpty: {
                 args: true,
                 msg: 'la contraseña no puede estar vacía'
-            },
-            len: {
-                args: [5, 100],
-                msg: 'La contraseña debe contener entre 5 y 8 caracteres'
             }
         }
     }

@@ -5,7 +5,10 @@ const relaciones = require('./db/relaciones');
 const Platos_Pedidos = require('./models/Platos_Pedidos');
 const Cliente = require('./models/Cliente');
 const Direccion = require('./models/Direccion');
+const Usuario = require('./models/Usuario');
 
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
   
  
@@ -30,7 +33,7 @@ const clientes = [
 const direcciones = [
   { ciudad_dr: 'Los Andes', calle_dr: 'Esmeralda con papudo', numero_dr: 1236, clienteId:1},
   { ciudad_dr: 'San Felipe', calle_dr: 'Debajo del puente', numero_dr: 2569, clienteId:2},
-  { ciudad_dr: 'Los Andes', calle_dr: 'Maipú con las heras', numero_dr: 2412, clienteId:3},
+  { ciudad_dr: 'Los Andes', calle_dr: 'Maipu con las heras', numero_dr: 2412, clienteId:3},
   { ciudad_dr: 'Los Andes', calle_dr: 'Minera andina', numero_dr: 1174, clienteId:4}
 
 
@@ -58,7 +61,6 @@ const direcciones = [
     { clienteId:4 , precio_total_pd: 12000, tipo_pd: 'Retiro'}
 
   ];
-console.log(pedidos);
 
 const platos_pedidos = [
   { pedidoId: 1, platoId: 1, cantidad_pp: 1},
@@ -69,6 +71,11 @@ const platos_pedidos = [
   { pedidoId: 4, platoId: 4, cantidad_pp: 1}
 ];
 
+const usuarios = [
+  {nombre_ad: 'Rodrigo Gutierrez', email_ad: 'rodrigo@gmail.com', password_ad: '123123'},
+  {nombre_ad: 'Maria nieves ', email_ad: 'marianieve@gmail.com', password_ad: 'asdasd'}
+]
+
 
 
 sequelize.sync({force: false}).then(()=>{
@@ -78,6 +85,11 @@ sequelize.sync({force: false}).then(()=>{
     platos.forEach(pl => Plato.create(pl))
     clientes.forEach(cl => Cliente.create(cl))
     direcciones.forEach(dr => Direccion.create(dr))
+    usuarios.forEach( async u => {
+        u.password_ad = await bcrypt.hash(u.password_ad, 10)
+
+        Usuario.create(u)
+    })
     
 
 }).then( () =>{
@@ -92,21 +104,9 @@ sequelize.sync({force: false}).then(()=>{
   })
   platos_pedidos.forEach(pp => Platos_Pedidos.create(pp))
 
-    // let crearUnPedido = Platos_Pedidos.create({
-    //   cantidad_pp:2,
-    //   platoId:1,
-    //   pedidoId: 1
-    //  // },{
-    //  //   include:[Plato, Pedido]
-    //  })
+  
 
-  //   let pedido1 = Pedido.create({
-  //     hora_pd: '21:30',
-  //     fecha_pd: '11-10-2021',
-  //     precio_total_pd: '6000',
-  //     clienteId: 1
-  // })
-    
+ 
 
 }).then(() =>{
 

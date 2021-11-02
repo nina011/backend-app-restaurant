@@ -18,7 +18,7 @@ Cliente.init({
                 msg: 'El nombre debe contener entre 3 y 15 caracteres'
             },
             isLetterSpace(str){
-               const reg =  /^[a-zA-Z\s]*$/
+               const reg =  /^[a-zA-ZÀ-ÿ\s]*$/
 
                if(!reg.test(str)) throw Error('El nombre pude contener solo letras')
             }
@@ -37,7 +37,7 @@ Cliente.init({
                 msg: 'El apellido debe contener entre 3 y 15 caracteres'
             },
             isLetterSpace(str){
-                const reg =  /^[a-zA-Z\s]*$/
+                const reg =  /^[a-zA-ZÀ-ÿ\s]*$/
  
                 if(!reg.test(str)) throw Error('El apellido puede contener solo letras')
              }

@@ -17,7 +17,7 @@ Direccion.init({
                 msg:'La ciudad debe contener entre 4 y 15 caracteres'
             },
             isLetterSpace(str){
-                const reg =  /^[a-zA-Z\s]*$/
+                const reg =  /^[a-zA-ZÀ-ÿ\s]*$/
  
                 if(!reg.test(str)) throw Error('El nombre pude contener solo letras')
              }
@@ -36,7 +36,7 @@ Direccion.init({
                 msg:'La calle debe contener entre 5 y 50 caracteres'
            },
            isLetterSpace(str){
-            const reg =  /^[a-zA-Z\s]*$/
+            const reg =  /^[a-zA-ZÀ-ÿ\s]*$/
 
             if(!reg.test(str)) throw Error('El nombre pude contener solo letras')
          }
