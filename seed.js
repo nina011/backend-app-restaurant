@@ -13,14 +13,10 @@ const bcrypt = require('bcrypt');
   
  
 const platos = [
-    { nombre_pl: 'completo', descripcion_pl:'delicioso completo con tomate y palta', 
-      agregado_pl:'sin mayo', precio_pl: 3000 },
-    { nombre_pl: 'ensalada cesar', descripcion_pl:'exquisita ensalada cesar lista para disfrutar', 
-      agregado_pl:'con aderezo', precio_pl: 5000 },
-    { nombre_pl: 'Carne mongoliana', descripcion_pl:'Sabrosa carne mongoliana', 
-      agregado_pl:'sin algas', precio_pl: 6000 },
-    { nombre_pl: 'Pollo chiten', descripcion_pl:'exquisito pollo chitén', 
-      agregado_pl:'con todo', precio_pl: 6000 },
+    { nombre_pl: 'completo', descripcion_pl:'delicioso completo con tomate y palta',precio_pl: 3000},
+    { nombre_pl: 'ensalada cesar', descripcion_pl:'exquisita ensalada cesar lista para disfrutar', precio_pl: 5000 },
+    { nombre_pl: 'Carne mongoliana', descripcion_pl:'Sabrosa carne mongoliana',  precio_pl: 6000 },
+    { nombre_pl: 'Pollo chiten', descripcion_pl:'exquisito pollo chitén', precio_pl: 6000 },
 ]
 
 const clientes = [
@@ -56,19 +52,19 @@ const direcciones = [
 
   const pedidos = [
     { clienteId:1 , precio_total_pd: 8000, tipo_pd: 'Delivery', fecha_pd:'2021-08-15'},
-    { clienteId:2 , precio_total_pd: 11000, tipo_pd: 'Delivery'},
+    { clienteId:2 , precio_total_pd: 11000, tipo_pd: 'Delivery', fecha_pd:'2021-08-10'},
     { clienteId:3 , precio_total_pd: 12000, tipo_pd: 'Retiro'},
     { clienteId:4 , precio_total_pd: 12000, tipo_pd: 'Retiro'}
 
   ];
 
 const platos_pedidos = [
-  { pedidoId: 1, platoId: 1, cantidad_pp: 1},
-  { pedidoId: 1, platoId: 2, cantidad_pp: 1},
-  { pedidoId: 2, platoId: 2, cantidad_pp: 2},
-  { pedidoId: 3, platoId: 3, cantidad_pp: 2},
-  { pedidoId: 4, platoId: 3, cantidad_pp: 1},
-  { pedidoId: 4, platoId: 4, cantidad_pp: 1}
+  { pedidoId: 1, platoId: 1, cantidad_pp: 1, agregado_pp:'sin mayo'},
+  { pedidoId: 1, platoId: 2, cantidad_pp: 1, agregado_pp:'con aderezo'},
+  { pedidoId: 2, platoId: 2, cantidad_pp: 2, agregado_pp:'sin algas'},
+  { pedidoId: 3, platoId: 3, cantidad_pp: 2,  agregado_pp:'con todo'},
+  { pedidoId: 4, platoId: 3, cantidad_pp: 1, agregado_pp:'sin ketchup'},
+  { pedidoId: 4, platoId: 4, cantidad_pp: 1, agregado_pp:'con mostaza'}
 ];
 
 const usuarios = [

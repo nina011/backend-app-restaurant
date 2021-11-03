@@ -44,15 +44,7 @@ Plato.init({
              }
         }
     },
-    agregado_pl:{
-        type: DataTypes.STRING,
-        validate:{
-            len: {
-                args: [0, 200],
-                msg: 'El agregado no puede exceder los 200 caracteres'
-            }
-        }
-    },
+    
     estado_pl:{
         type: DataTypes.BOOLEAN,
         defaultValue: true,

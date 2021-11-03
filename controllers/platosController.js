@@ -38,19 +38,20 @@ exports.subirImagen = (req, res, next) => {
 exports.nuevoPlato = async(req, res) =>{
 
     // leer la imagen
-  
+    
  
     try{   
+
         console.log(req.file);
         const plato = await Plato.create({
             nombre_pl: req.body.nombrePl,
             descripcion_pl: req.body.descripPl,
-            agregado_pl: req.body.agregadoPl,
             precio_pl: req.body.precioPl,
             img_pl: req.file.filename
         })
 
         res.status(201).json({mensaje: 'Se ha creado un nuevo plato'})
+      
 
     }catch(e){
         console.log('ha ocurrido un error en la insercion: ',e);
@@ -108,7 +109,6 @@ exports.modificarPlato = async(req, res) =>{
         const modPlato = await Plato.update({
             nombre_pl: req.body.nombrePl,
             descripcion_pl: req.body.descripPl,
-            agregado_pl: req.body.agregadoPl,
             precio_pl: req.body.precioPl,
             img_pl: req.body.imagen
         },{
