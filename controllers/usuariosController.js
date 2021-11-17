@@ -25,7 +25,7 @@ exports.registrarUsuario = async(req, res) =>{
 
 
 exports.iniciarSesion = async (req, res, next) =>{
-    console.log('entro aquí');
+    
     const { email, password } = req.body;
 
     const usuario = await Usuario.findOne({
