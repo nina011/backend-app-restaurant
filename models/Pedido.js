@@ -20,9 +20,7 @@ Pedido.init({
     },
     fecha_pd: {
         type: DataTypes.DATEONLY,
-        defaultValue: fecha.getFullYear()+'-'+(fecha.getMonth() < 10?
-                     '0'+fecha.getMonth(): fecha.getMonth())+'-'
-                     +(fecha.getDay() < 10? '0'+fecha.getDay(): fecha.getDay()),
+        defaultValue: '2021-11-28',
         allowNull: false,
         validate:{
             notEmpty: {

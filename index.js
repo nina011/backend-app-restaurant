@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const sequelize = require('./db/con');
 const cors = require('cors');
+const sequelize = require('./db/con');
+
 
 const routes = require('./routes/index');
 const PORT = 5000;
@@ -26,11 +27,36 @@ app.use(express.urlencoded({ extended: false }));
 // });
 
 // rutas
+
+
+
+app.use(express.static('uploads'));
+
+// definir dominio 
+const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'http://localhost']
+const corsOption = {
+    origin: (origin, callback) =>{
+        for (let i = 0; i < whitelist.length; i++) {
+            if(whitelist[i].indexOf(origin) !== -1){
+                callback(null, true);
+            }else{
+                callback(new Error('No permitido por CORS'))
+            }
+        }
+    }
+}
+
+
 app.use(cors({
+    
     exposedHeaders: ['Content-Range']
 }))
+
 app.use('/', routes());
 
+
+
+// app.use('/', routes(), cors(corsOption))
 
 app.listen(PORT, () =>{
 

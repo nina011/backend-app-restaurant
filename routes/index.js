@@ -37,7 +37,8 @@ module.exports = () =>{
     // ** PLATOS ***
     // ingresar plato nuevo
     router.post('/platos/nuevoplato',
-     platosController.subirImagen, platosController.nuevoPlato);
+    platosController.subirImagen,
+    platosController.nuevoPlato);
     // obtener todos los platos
     router.get('/platos', platosController.listaPlatos);
     // obtener un solo plato

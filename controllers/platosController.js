@@ -4,11 +4,11 @@ const db = require('../db/config');
 const multer = require('multer');
 const shortid = require('shortid');
 
-console.log(__dirname);
+
 const configMulter = {
     storage: fileStorage = multer.diskStorage({
         destination: (req, file, next) =>{
-            next(null, '/home/nina/Documentos/VI semestre/taller integrado de analisis/backend_restaurant/public/uploads');
+            next(null,__dirname+'../../uploads/');
         },
         filename: (req, file, next) =>{
             const extension = file.mimetype.split('/')[1];
@@ -16,7 +16,8 @@ const configMulter = {
         }
     }),
     fileFilter(req, file, cb){
-        if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+        if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'
+            || file.mimetype === 'image/jpg'){
             cb(null, true)
         }else{
             cb(new Error ('Formato no válido'))
@@ -35,14 +36,10 @@ exports.subirImagen = (req, res, next) => {
 }
 
 
-exports.nuevoPlato = async(req, res) =>{
+exports.nuevoPlato = async(req, res, next) =>{
 
-    // leer la imagen
-    
- 
     try{   
-
-        console.log(req.file);
+        
         const plato = await Plato.create({
             nombre_pl: req.body.nombrePl,
             descripcion_pl: req.body.descripPl,

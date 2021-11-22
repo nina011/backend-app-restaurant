@@ -10,14 +10,25 @@ const Usuario = require('./models/Usuario');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// const router = require('./routes/index');
+const express = require('express');
+const router = express.Router()
+
+
+
   
  
 const platos = [
-    { nombre_pl: 'completo', descripcion_pl:'delicioso completo con tomate y palta',precio_pl: 3000},
-    { nombre_pl: 'ensalada cesar', descripcion_pl:'exquisita ensalada cesar lista para disfrutar', precio_pl: 5000 },
-    { nombre_pl: 'Carne mongoliana', descripcion_pl:'Sabrosa carne mongoliana',  precio_pl: 6000 },
-    { nombre_pl: 'Pollo chiten', descripcion_pl:'exquisito pollo chitén', precio_pl: 6000 },
-]
+    { nombre_pl: 'Hamburguesa de la casa', descripcion_pl:'Exquisita hamburguesa de la casa de carne de res del sur, con queso derretido mantecoso , tomate , lechuga y cebolla acaramelada',precio_pl: 3500, img_pl: 'hamburguesa-carne-cebolla'},
+    { nombre_pl: 'Big L.A.', descripcion_pl:'Una apuesta culinaria esta hamburguesa de carne de res del sur, con queso sheddar, tocino, palta, lechuga, cebolla morada y mayo', precio_pl: 5000, img_pl: 'hamburguesa-palta-queso'},
+    { nombre_pl: 'Double Float carnivora', descripcion_pl:'Esta hamburguesa tiene doble en todo, doble hamburguesa de res, doble queso sheddar, doble tocino!',  precio_pl: 6000 , img_pl:'doble-hamburguesa'},
+    { nombre_pl: 'Vegan Choise', descripcion_pl:'Alternativa veggie a base de garbanzo y condimentos, con cebolla acaramelada, pimenton, lechuga, papitas y mayo', precio_pl: 5000, img_pl:'hamburguesa-vegana'},
+    { nombre_pl: 'Completo', descripcion_pl:'Un clásico chileno, completo italiano', precio_pl: 2000, img_pl:'completo'},
+    { nombre_pl: 'Chorrillana Tradicional', descripcion_pl:'Otro clásico de la comida chilena, una exquisita chorrillana con papas fritas, chorizo, carne, cebolla y huevo', precio_pl: 10000, img_pl:'chorrillana-tradicion'},
+    { nombre_pl: 'Chorrillana Arabe', descripcion_pl:'Chorrillana al estilo árabe, contiene papas fritas, falafel, cebollin, y mas agregados', precio_pl: 8000, img_pl:'chorrillana-arabe'},
+    { nombre_pl: 'Salchipapas', descripcion_pl:'La infaltable salchipapa para los mañosos', precio_pl: 6000, img_pl:'salchipapa'},
+    { nombre_pl: 'Papas Fritas', descripcion_pl:'Exquisitas papas fritas, crujientes y deliciosas ', precio_pl: 4000, img_pl:'papitasfritas'},
+  ]
 
 const clientes = [
   { nombre_cl: 'Juan', apellido_cl: 'Carvajal', email_cl: 'juancarvajal@gmail.com', telefono_cl: '+56932145684'},
@@ -78,33 +89,23 @@ sequelize.sync({force: false}).then(()=>{
     console.log('conexion en seed');
 }).then(() =>{
 
-    platos.forEach(pl => Plato.create(pl))
-    clientes.forEach(cl => Cliente.create(cl))
-    direcciones.forEach(dr => Direccion.create(dr))
-    usuarios.forEach( async u => {
-        u.password_ad = await bcrypt.hash(u.password_ad, 10)
-
-        Usuario.create(u)
-    })
-    
+     platos.forEach(pl => Plato.create(pl))
 
 }).then( () =>{
 
-  pedidos.forEach( pd => {
+  // clientes.forEach(cl => Cliente.create(cl))
+  //   direcciones.forEach(dr => Direccion.create(dr))
+  //   usuarios.forEach( async u => {
+  //       u.password_ad = await bcrypt.hash(u.password_ad, 10)
 
-  
-    Pedido.create(pd)
-  
-  })
-  platos_pedidos.forEach(pp => Platos_Pedidos.create(pp))
+  //       Usuario.create(u)
+  //   })
 
-
-}).then(() =>{
-
-
-  
-
- //console.log(r[0].toJSON()
+}).then(()=>{
+  // pedidos.forEach( pd => {
+  //   Pedido.create(pd)
+  // })
+  // platos_pedidos.forEach(pp => Platos_Pedidos.create(pp))
 })
 
 
