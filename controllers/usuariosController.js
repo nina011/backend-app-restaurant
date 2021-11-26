@@ -51,7 +51,8 @@ exports.iniciarSesion = async (req, res, next) =>{
                 expiresIn:'4h'
             })
 
-            res.json({ token })
+            const { id, nombre_ad } = usuario;
+            res.json({ token, id, nombre_ad })
         }
     }
 }

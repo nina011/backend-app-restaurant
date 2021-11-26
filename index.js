@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('uploads'));
 
 // definir dominio 
-const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'http://localhost']
+const whitelist = ['http://localhost:3000', 'http://localhost:5000']
 const corsOption = {
     origin: (origin, callback) =>{
         for (let i = 0; i < whitelist.length; i++) {

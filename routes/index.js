@@ -6,6 +6,7 @@ const usuariosController = require('../controllers/usuariosController');
 const platosController = require('../controllers/platosController');
 const pedidosController = require('../controllers/pedidosController');
 
+const auth = require('../middleware/auth');
 module.exports = () =>{
 
     // *** CLIENTES ***
