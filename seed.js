@@ -31,10 +31,10 @@ const platos = [
   ]
 
 const clientes = [
-  { nombre_cl: 'Juan', apellido_cl: 'Carvajal', email_cl: 'juancarvajal@gmail.com', telefono_cl: '+56932145684'},
-  { nombre_cl: 'Anita', apellido_cl: 'LaHuerfanita', email_cl: 'anitalahuerfanita@gmail.com', telefono_cl: '+56932132123'},
-  { nombre_cl: 'Gabriela', apellido_cl: 'Barraza', email_cl: 'gabriela@gmail.com', telefono_cl: '+56965478985'},
-  { nombre_cl: 'Francisco', apellido_cl: 'Gonzalez', email_cl: 'franciscogonza@gmail.com', telefono_cl: '+56998746521'}
+  { nombre_cl: 'Juan', apellido_cl: 'Carvajal', email_cl: 'juancarvajal@gmail.com', telefono_cl: '+56932145684', password_cl: 'qwerty'},
+  { nombre_cl: 'Anita', apellido_cl: 'LaHuerfanita', email_cl: 'anitalahuerfanita@gmail.com', telefono_cl: '+56932132123', password_cl: '123456'},
+  { nombre_cl: 'Gabriela', apellido_cl: 'Barraza', email_cl: 'gabriela@gmail.com', telefono_cl: '+56965478985',password_cl: 'qwerty' },
+  { nombre_cl: 'Francisco', apellido_cl: 'Gonzalez', email_cl: 'franciscogonza@gmail.com', telefono_cl: '+56998746521', password_cl: '123456'}
 ];
 
 const direcciones = [
@@ -89,19 +89,24 @@ sequelize.sync({force: false}).then(()=>{
     console.log('conexion en seed');
 }).then(() =>{
 
-     platos.forEach(pl => Plato.create(pl))
+    //  platos.forEach(pl => Plato.create(pl))
 
 }).then( () =>{
 
-  // clientes.forEach(cl => Cliente.create(cl))
-  //   direcciones.forEach(dr => Direccion.create(dr))
-  //   usuarios.forEach( async u => {
-  //       u.password_ad = await bcrypt.hash(u.password_ad, 10)
+  // clientes.forEach(async cl => {
+  //   cl.password_cl = await bcrypt.hash(cl.password_cl, 10)
 
-  //       Usuario.create(u)
-  //   })
+  //     Cliente.create(cl)
+  // })
+    // direcciones.forEach(dr => Direccion.create(dr))
+    // usuarios.forEach( async u => {
+    //     u.password_ad = await bcrypt.hash(u.password_ad, 10)
+
+    //     Usuario.create(u)
+    // })
 
 }).then(()=>{
+  // direcciones.forEach(async dr => await Direccion.create(dr))
   // pedidos.forEach( pd => {
   //   Pedido.create(pd)
   // })

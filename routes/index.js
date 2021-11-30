@@ -11,7 +11,10 @@ module.exports = () =>{
 
     // *** CLIENTES ***
     // agregar un cliente
-    router.post('/clientes', clientesController.registrarCliente);
+    router.post('/clientes/registrarse', clientesController.registrarCliente);
+    // login clientes
+    router.post('/clientes/iniciar-sesion', clientesController.iniciarSesion);
+
     // traer lista de clientes
     router.get('/clientes',clientesController.listaClientes)
     // traer 1 cliente
@@ -54,8 +57,8 @@ module.exports = () =>{
     //ingresar un pedido
     router.post('/pedidos/nuevo', 
     pedidosController.nuevoPedido
-    // ,
-    // pedidosController.enviarEmail
+    ,
+    pedidosController.enviarEmail
     );
     //obtener todos los pedidos
     router.get('/pedidos', pedidosController.obtenerTodosLosPedidos);

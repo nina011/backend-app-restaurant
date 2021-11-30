@@ -77,7 +77,7 @@ Cliente.init({
             }
         }
     },
-    password_ad:{
+    password_cl:{
         type: DataTypes.STRING,
         allowNull: false,
         validate:{

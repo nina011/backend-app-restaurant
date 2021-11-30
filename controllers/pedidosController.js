@@ -10,7 +10,7 @@ exports.nuevoPedido = async(req, res, next) =>{
     
     const { horaPd, fechaPd, idCl, precioT } = req.body;
     const { platos } = req.body;
-  
+
     try{
 
         // calcular el precio total 
@@ -19,9 +19,21 @@ exports.nuevoPedido = async(req, res, next) =>{
         let i = 0;
 
         while(i < platos.length){
-            let precioPlato = await Plato.findByPk(platos[i].id)
-            precio_total = precio_total + precioPlato.precio_pl;          
+
+            console.log(platos[i].cantidad)
+            let existePlato = await Plato.findByPk(platos[i].id)
+
+            if(!existePlato){
+                res.status(400).json({mensaje: 'Existe un conflicto en el pedido precio'})
+                return;
+            }
+            precio_total = precio_total + (existePlato.precio_pl * platos[i].cantidad);          
             i++;
+        }
+
+        if(precio_total !== precioT ){
+            res.status(400).json({mensaje: 'Existe un conflicto en el pedido distinto'})
+                return;
         }
 
         // primero crear un pedido
@@ -43,9 +55,6 @@ exports.nuevoPedido = async(req, res, next) =>{
                 platoId: p.id,
                 cantidad_pp: p.cantidad
             }
-
-            console.log(po);
-
              nuevoPlatosPedido =  Platos_Pedidos.create(po)
 
         })

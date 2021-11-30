@@ -2,6 +2,7 @@ const Cliente = require('../models/Cliente');
 const Direccion = require('../models/Cliente')
 const db = require('../db/config')
 const relaciones = require('../db/relaciones');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
 
 //crear un nuevo cliente
@@ -45,15 +46,16 @@ exports.iniciarSesion = async(req, res, next) => {
     if(!cliente){
         await res.status(401).json({mensaje: 'Cliente no existe, registrese'})
     }else{
-        if(bcrypt.compareSync(password, cliente.password_cl)){
+        if(!bcrypt.compareSync(password, cliente.password_cl)){
             await res.status(401).json({mensaje: 'Password incorrecto'})
         }else{
             // si el password es correcto
             const token = jwt.sign({
                 email: cliente.email_cl,
                 nombre: cliente.nombre_cl,
-                id: cliente.id
-            },{
+                id: cliente.id,
+            }, 'secretkkkey',
+            {
                 expiresIn:'4h'
             })
 
