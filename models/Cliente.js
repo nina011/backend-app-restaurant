@@ -77,6 +77,16 @@ Cliente.init({
             }
         }
     },
+    password_ad:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: {
+                args: true,
+                msg: 'la contraseña no puede estar vacía'
+            }
+        }
+    },
     estado_cl:{
         type: DataTypes.BOOLEAN,
         defaultValue: true,

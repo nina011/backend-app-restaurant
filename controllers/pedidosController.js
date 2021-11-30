@@ -10,7 +10,7 @@ exports.nuevoPedido = async(req, res, next) =>{
     
     const { horaPd, fechaPd, idCl, precioT } = req.body;
     const { platos } = req.body;
-
+  
     try{
 
         // calcular el precio total 
@@ -41,7 +41,7 @@ exports.nuevoPedido = async(req, res, next) =>{
             const po = {
                 pedidoId: nuevoPedido.id,
                 platoId: p.id,
-                cantidad_pp: p.cantidad_pp
+                cantidad_pp: p.cantidad
             }
 
             console.log(po);
@@ -56,7 +56,7 @@ exports.nuevoPedido = async(req, res, next) =>{
 
         console.log('hubo un error ',e);
 
-        res.status(400).json({mensaje: 'no se puedo realizar la solicitud'})
+         res.status(400).json({mensaje: 'no se puedo realizar la solicitud'})
     }
 }
 

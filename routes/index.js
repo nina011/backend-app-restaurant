@@ -11,7 +11,7 @@ module.exports = () =>{
 
     // *** CLIENTES ***
     // agregar un cliente
-    router.post('/clientes', clientesController.nuevoCliente);
+    router.post('/clientes', clientesController.registrarCliente);
     // traer lista de clientes
     router.get('/clientes',clientesController.listaClientes)
     // traer 1 cliente
