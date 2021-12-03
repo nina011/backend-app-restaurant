@@ -8,6 +8,7 @@ const shortid = require('shortid');
 const configMulter = {
     storage: fileStorage = multer.diskStorage({
         destination: (req, file, next) =>{
+           
             next(null,__dirname+'../../uploads/');
         },
         filename: (req, file, next) =>{
@@ -16,6 +17,7 @@ const configMulter = {
         }
     }),
     fileFilter(req, file, cb){
+       
         if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'
             || file.mimetype === 'image/jpg'){
             cb(null, true)
@@ -24,10 +26,17 @@ const configMulter = {
         }
     }
 }
-const upload = multer(configMulter).single('img_pl');
+
+const upload = multer(configMulter).single('img_pl')
 
 exports.subirImagen = (req, res, next) => {
+    // req.body.img_pl = req.body.img_pl.rawFile.path;
+    // console.log('IMAGEN ',req.files)
+    // console.log('IMAGEN ',req.body.img_pl.rawFile.path)
+
+    
     upload(req, res, function(err){
+        
         if(err){
             console.log(err);
         }
@@ -38,6 +47,7 @@ exports.subirImagen = (req, res, next) => {
 
 exports.nuevoPlato = async(req, res, next) =>{
 
+    
     try{   
         
         const plato = await Plato.create({
@@ -77,12 +87,12 @@ exports.listaPlatos = async(req, res) =>{
 
 exports.obtenerUnPlato = async(req, res) =>{
 
-    const { nombrePl } = req.body;
+    const { id } = req.params;
 
     try{
         const plato = await Plato.findOne({
             where:{
-                nombre_pl: nombrePl
+                id:id
             }
         })
 
@@ -101,13 +111,14 @@ exports.obtenerUnPlato = async(req, res) =>{
 exports.modificarPlato = async(req, res) =>{
 
     const { id } = req.params;
+    // console.log('IMAGEN ',req.body.img_pl)
 
     try{
         const modPlato = await Plato.update({
             nombre_pl: req.body.nombrePl,
             descripcion_pl: req.body.descripPl,
             precio_pl: req.body.precioPl,
-            img_pl: req.body.imagen
+            img_pl: req.file.filename
         },{
             where:{
                 id: id

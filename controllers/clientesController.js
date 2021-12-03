@@ -71,6 +71,9 @@ exports.listaClientes = async(req, res, next) =>{
 
     try{
         const clientes =  await  Cliente.findAndCountAll({
+            attributes:{
+                exclude: ['password_cl']
+            },
             where:{
                 estado_cl: true
             }
@@ -104,6 +107,9 @@ exports.obtenerUnCliente = async(req, res, next) =>{
     try{
         
         const cliente = await Cliente.findOne({
+            attributes:{
+                exclude: ['password_cl']
+            },
             where: {
                 id: id
             }
@@ -126,6 +132,9 @@ exports.modificarCliente = async(req, res, next) =>{
     try{
 
         const modCli = await Cliente.update({
+            attributes:{
+                exclude: ['password_cl']
+            },
             nombre_cl: nombreCli,
             apellido_cl: apellidoCli,
             email_cl: emailCli,

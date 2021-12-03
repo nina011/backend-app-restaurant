@@ -8,9 +8,12 @@ const transporter = require('../src/mailer');
 exports.nuevoPedido = async(req, res, next) =>{
 
     
-    const { horaPd, fechaPd, idCl, precioT } = req.body;
+    const { horaPd, fechaPd, idCl, precioT, tipoDespacho } = req.body;
     const { platos } = req.body;
-
+    console.log(platos)
+    if(!tipoDespacho || !idCl || !precioT){
+        res.status(400).json({mensaje: 'Faltan datos, no se puede realizar el pedido'})
+    }
     try{
 
         // calcular el precio total 
@@ -41,7 +44,8 @@ exports.nuevoPedido = async(req, res, next) =>{
             hora_pd: horaPd,
             fecha_pd: fechaPd,
             precio_total_pd: precio_total,
-            clienteId: idCl
+            clienteId: idCl,
+            tipo_pd: tipoDespacho
         })
         
         // luego insertar los platos del pedido y su cantidad
@@ -59,7 +63,7 @@ exports.nuevoPedido = async(req, res, next) =>{
 
         })
 
-        res.status(200).json(nuevoPlatosPedido)
+        res.status(200).json({mensaje:'su pedido ha sido tomado'})
         next()
     }catch(e){
 

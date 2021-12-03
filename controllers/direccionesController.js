@@ -35,7 +35,16 @@ exports.listaDireccionesClientes = async(req, res, next) =>{
             include:'cliente'
          })
          
-         res.status(200).json(direccion)
+         res.status(200).set({
+             'Content-Range': direccion.count
+         }).json(direccion.rows)
+
+
+         /**
+          *  res.status(200).set({
+            'Content-Range': clientes.count
+         }).json(clientes.rows)
+          */
  }
 
 
@@ -66,5 +75,35 @@ exports.listaDireccionesClientes = async(req, res, next) =>{
         
     }catch(e){
         res.status(400).json({ mensaje: 'no se encontró'})
+    }
+ }
+
+
+ exports.editarDireccion = async(req, res) =>{
+
+    const { id } = req.params;
+    const { ciudadDr, calleDr, numeroDr, num_deptoDr } = req.body ;
+   
+    try{
+
+        const direccionUpdate = await Cliente.update({
+            
+            ciudad_dr: nombreCli,
+            calle_dr: calleDr,
+            numero_dr: numeroDr,
+            num_depto_dr: num_deptoDr
+        },{
+            where:{
+                clienteId: id
+            }
+        });
+        
+        res.status(200).json(direccionUpdate)
+        
+    }catch(e){
+
+        res.status(400).json({message:  e.errors[0].message})
+        next();
+        
     }
  }

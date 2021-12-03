@@ -30,7 +30,10 @@ module.exports = () =>{
     // obtener todas las direcciones
     router.get('/direcciones',direccionesController.listaDireccionesClientes);
     // agregar una nueva direccion 
-    router.post('/direccion/onedireccion', direccionesController.nuevaDireccion);
+    router.post('/direcciones', direccionesController.nuevaDireccion);
+    // editar una direccion
+    router.put('/direcciones/:id', direccionesController.editarDireccion);
+
 
     // *** ADMIN ***
     // registrarse
@@ -40,15 +43,15 @@ module.exports = () =>{
 
     // ** PLATOS ***
     // ingresar plato nuevo
-    router.post('/platos/nuevoplato',
+    router.post('/platos',
     platosController.subirImagen,
     platosController.nuevoPlato);
     // obtener todos los platos
     router.get('/platos', platosController.listaPlatos);
     // obtener un solo plato
-    router.get('/platos/plato', platosController.obtenerUnPlato);
+    router.get('/platos/:id', platosController.obtenerUnPlato);
     // actualizar plato 
-    router.patch('/platos/modplato/:id', platosController.modificarPlato);
+    router.put('/platos/:id', platosController.subirImagen, platosController.modificarPlato);
     // eliminar plato
     router.patch('/platos/elplato/:id', platosController.eliminarPlato);
 
