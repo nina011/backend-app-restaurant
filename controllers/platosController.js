@@ -30,11 +30,7 @@ const configMulter = {
 const upload = multer(configMulter).single('img_pl')
 
 exports.subirImagen = (req, res, next) => {
-    // req.body.img_pl = req.body.img_pl.rawFile.path;
-    // console.log('IMAGEN ',req.files)
-    // console.log('IMAGEN ',req.body.img_pl.rawFile.path)
-
-    
+   
     upload(req, res, function(err){
         
         if(err){
@@ -47,7 +43,7 @@ exports.subirImagen = (req, res, next) => {
 
 exports.nuevoPlato = async(req, res, next) =>{
 
-    
+    console.log(req.body.nombrePl, req.body.descripPl, req.body.precioPl);
     try{   
         
         const plato = await Plato.create({

@@ -53,7 +53,7 @@ module.exports = () =>{
     // actualizar plato 
     router.put('/platos/:id', platosController.subirImagen, platosController.modificarPlato);
     // eliminar plato
-    router.patch('/platos/elplato/:id', platosController.eliminarPlato);
+    router.delete('/platos/:id', platosController.eliminarPlato);
 
     
     //** PEDIDOS  **
@@ -66,11 +66,11 @@ module.exports = () =>{
     //obtener todos los pedidos
     router.get('/pedidos', pedidosController.obtenerTodosLosPedidos);
     // obtener un solo pedido
-    router.get('/pedidos/pedido', pedidosController.obtenerUnSoloPedido)
+    router.get('/pedidos/:id', pedidosController.obtenerUnSoloPedido)
     // actualizar un pedido
-    router.patch('/pedidos/modpedido/:id', pedidosController.modificarUnPedido);
+    router.put('/pedidos/:id', pedidosController.modificarUnPedido);
     // eliminar un pedido
-    router.patch('/pedidos/elpedido/:id', pedidosController.eliminarUnPedido);
+    router.delete('/pedidos/:id', pedidosController.eliminarUnPedido);
     
     return router;
 }

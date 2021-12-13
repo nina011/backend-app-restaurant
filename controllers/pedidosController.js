@@ -1,3 +1,4 @@
+const Cliente = require('../models/Cliente');
 const Pedido = require('../models/Pedido');
 const Plato = require('../models/Plato');
 const Platos_Pedidos = require('../models/Platos_Pedidos');
@@ -40,8 +41,11 @@ exports.nuevoPedido = async(req, res, next) =>{
         }
 
         // primero crear un pedido
+
+        let fecha = new Date()
+
         const nuevoPedido = await Pedido.create({
-            hora_pd: horaPd,
+            hora_pd: fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds(),
             fecha_pd: fechaPd,
             precio_total_pd: precio_total,
             clienteId: idCl,
@@ -74,18 +78,43 @@ exports.nuevoPedido = async(req, res, next) =>{
 }
 
 exports.enviarEmail = async(req, res) =>{
-   
+    const { horaPd, fechaPd, idCl, precioT, tipoDespacho, platos } = req.body;
+    console.log(horaPd, fechaPd, idCl, precioT, tipoDespacho , platos)
+
+
+
+    const buscarCliente = await Cliente.findByPk(idCl)
+    let listPlatos = '';
+    for(let i = 0; i < platos.length; i++){
+        buscarPlato = await Plato.findByPk(platos[i].id)
+    
+        listPlatos += `<li>` + buscarPlato.nombre_pl + `cantidad: ${platos[i].cantidad} </li>`;
+    }
     try{
+
         
       await transporter.sendMail({
             from: '¡ Nuevo Pedido ! <random.tool.application@gmail.com>',
             to: 'random.tool.application@gmail.com',
             subject: 'Un cliente ha increado un nuevo pedido',
             html: `
+            <body>
+            
             <h2>Admin, hay un nuevo pedido!</h2>
             <br>
             <p><b>Se ha ingresado un nuevo pedido para que lo revises
             cuanto antes</b></p>
+            <br>
+            <div class="contenedor-info">
+                <p>Cliente: ${buscarCliente.nombre_cl+' '+buscarCliente.apellido_cl}</p>
+                <p>Pedido: </p> <ul>
+                                    ${listPlatos}
+                                </ul>
+                <p>Tipo de despacho: ${tipoDespacho}</p>
+                <br>
+                <h3>Precio: ${precioT}</h3>
+            </div>
+            </body>
             `
         })
         console.log('se envio el email');
@@ -110,10 +139,10 @@ exports.obtenerTodosLosPedidos = async(req, res) =>{
                     as: 'platos_pedidos',
                     attributes: ['cantidad_pp']
                 }
-            }],
-            where:{
-                estado_pd: true
-            }    
+            }]
+            // where:{
+            //     estado_pd: true
+            // }    
         })
 
         res.status(200).set({
@@ -127,7 +156,7 @@ exports.obtenerTodosLosPedidos = async(req, res) =>{
 
 exports.obtenerUnSoloPedido = async(req, res) =>{
     
-    const { id } = req.body;
+    const { id } = req.params;
     // console.log(id);
     try{
         const obtenerUnPedido = await Pedido.findOne({
@@ -147,7 +176,6 @@ exports.obtenerUnSoloPedido = async(req, res) =>{
                 id: id
             }
         })
-        console.log(obtenerUnPedido);
         res.status(200).json(obtenerUnPedido);
 
     }catch(e){
@@ -159,7 +187,26 @@ exports.obtenerUnSoloPedido = async(req, res) =>{
 
 exports.modificarUnPedido = async(req, res) =>{
 
-    // hay que definir que vamos a modificar del pedido, agregar platos? quitar platos?
+    console.log('ENTRANDO A PEDIDO');
+    const { id } = req.params;
+    const { estado_pd } = req.body
+
+
+    try{
+
+        const obtenerPedido = await Pedido.update({
+
+            estado_pd: estado_pd
+        },{
+            where:{
+                id: id
+            }
+        })
+        res.json(obtenerPedido)
+
+    }catch(e){
+        res.status(404).json({mensaje:'Ocurrió un error en pedidos'})
+    }
 }
 
 exports.eliminarUnPedido = async(req, res ) =>{
@@ -179,6 +226,6 @@ exports.eliminarUnPedido = async(req, res ) =>{
         res.json(obtenerPedido)
 
     }catch(e){
-
+        res.status(404).json({mensaje:'Ocurrió un error en pedidos'})
     }
 }

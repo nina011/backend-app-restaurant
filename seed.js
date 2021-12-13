@@ -89,16 +89,17 @@ sequelize.sync({force: false}).then(()=>{
     console.log('conexion en seed');
 }).then(() =>{
 
-    //  platos.forEach(pl => Plato.create(pl))
+      // platos.forEach(pl => Plato.create(pl))
+      // clientes.forEach(async cl => {
+      //   cl.password_cl = await bcrypt.hash(cl.password_cl, 10)
+    
+      //     Cliente.create(cl)
+      // })
 
 }).then( () =>{
 
-  // clientes.forEach(async cl => {
-  //   cl.password_cl = await bcrypt.hash(cl.password_cl, 10)
-
-  //     Cliente.create(cl)
-  // })
-    // direcciones.forEach(dr => Direccion.create(dr))
+  
+    direcciones.forEach(async dr => await Direccion.create(dr))
     // usuarios.forEach( async u => {
     //     u.password_ad = await bcrypt.hash(u.password_ad, 10)
 

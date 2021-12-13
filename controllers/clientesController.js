@@ -1,5 +1,5 @@
 const Cliente = require('../models/Cliente');
-const Direccion = require('../models/Cliente')
+const Direccion = require('../models/Direccion')
 const db = require('../db/config')
 const relaciones = require('../db/relaciones');
 const jwt = require('jsonwebtoken');
@@ -9,11 +9,26 @@ const bcrypt = require('bcryptjs')
 // req.body de clientes llegan todos con nombres distintos
 exports.registrarCliente = async (req, res, next) => {
 
+    const { nombreCli, apellidoCli, emailCli, telefonoCli, password, ciudadDr,calleDr,numeroDr} = req.body ;
+    
+    if(password === ''){
+        res.status(401).json({mensaje:'la contraseña no puede estar vacia'})
+        return;
+    }
     const salt = bcrypt.genSaltSync(12);
     const hash = bcrypt.hashSync(req.body.password, salt)
 
+   const existeCliente =  await Cliente.findOne({
+        where:{
+            email_cl: emailCli
+        }
+    })
+
+    if(existeCliente){
+        res.status(401).json({mensaje:'El cliente ya existe'})
+        return;
+    }
     try{     
-        const { nombreCli, apellidoCli, emailCli, telefonoCli} = req.body ;
 
         const cliente =  await Cliente.create({
             nombre_cl: nombreCli,
@@ -23,7 +38,14 @@ exports.registrarCliente = async (req, res, next) => {
             password_cl: hash
         })
 
-        res.status(201).json(cliente)
+        await Direccion.create({
+            ciudad_dr: ciudadDr,
+            calle_dr: calleDr,
+            numero_dr: numeroDr,
+            clienteId: cliente.id
+        })
+    
+        res.status(201).json({message:'Se ha registrado con éxito'})
 
     }catch(e){
         console.log();
@@ -125,10 +147,10 @@ exports.obtenerUnCliente = async(req, res, next) =>{
 
 // modificar por id
 exports.modificarCliente = async(req, res, next) =>{
- 
+ console.log('entro a clientes')
     const { id } = req.params;
     const { nombreCli, apellidoCli, emailCli, telefonoCli} = req.body ;
-   
+  
     try{
 
         const modCli = await Cliente.update({

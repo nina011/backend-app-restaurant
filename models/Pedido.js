@@ -9,7 +9,7 @@ let fecha = new Date()
 Pedido.init({
     hora_pd : {
         type: DataTypes.TIME,
-        defaultValue:fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds(),
+        // defaultValue: fecha.getHours()+':'+fecha.getMinutes()+':'+fecha.getSeconds(),
         allowNull: false,
         validate:{
             notEmpty: {

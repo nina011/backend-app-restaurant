@@ -9,9 +9,9 @@ exports.nuevaDireccion = async(req,res,next) =>{
     try{
         
         const direccion = await Direccion.create({
-            ciudad_dr: req.body.ciudad_dr,
-            calle_dr: req.body.calle_dr,
-            numero_dr: req.body.numero_dr,
+            ciudad_dr: req.body.ciudadDr,
+            calle_dr: req.body.calleDr,
+            numero_dr: req.body.numeroDr,
             clienteId: req.body.clienteId
           
             
@@ -88,7 +88,7 @@ exports.listaDireccionesClientes = async(req, res, next) =>{
 
         const direccionUpdate = await Cliente.update({
             
-            ciudad_dr: nombreCli,
+            ciudad_dr: ciudadDr,
             calle_dr: calleDr,
             numero_dr: numeroDr,
             num_depto_dr: num_deptoDr
