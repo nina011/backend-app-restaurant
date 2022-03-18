@@ -1,7 +1,7 @@
 module.exports = {
     database:{
-        username:'javi',
-        password: 'Javi123@',
+        username:'',
+        password: '',
         database:'restaurant',
         host:'127.0.0.1'
     }

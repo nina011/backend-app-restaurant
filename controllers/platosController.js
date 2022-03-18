@@ -103,11 +103,9 @@ exports.obtenerUnPlato = async(req, res) =>{
     }
 }
 
-// modificar por id
 exports.modificarPlato = async(req, res) =>{
 
     const { id } = req.params;
-    // console.log('IMAGEN ',req.body.img_pl)
 
     try{
         const modPlato = await Plato.update({

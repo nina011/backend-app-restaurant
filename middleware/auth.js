@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
 
-    // autorizacion por el header
     const authHeader = req.get('Authorization');
 
     if(!authHeader){
@@ -26,7 +25,6 @@ module.exports = (req, res, next) => {
         throw e;
     }
 
-    // si es un token valido pero hay un error
     if(!revisarToken){
         const error = new Error('No autenticado')
         error.statusCode = 401;

@@ -89,22 +89,22 @@ sequelize.sync({force: false}).then(()=>{
     console.log('conexion en seed');
 }).then(() =>{
 
-      // platos.forEach(pl => Plato.create(pl))
-      // clientes.forEach(async cl => {
-      //   cl.password_cl = await bcrypt.hash(cl.password_cl, 10)
+      platos.forEach(pl => Plato.create(pl))
+      clientes.forEach(async cl => {
+        cl.password_cl = await bcrypt.hash(cl.password_cl, 10)
     
-      //     Cliente.create(cl)
-      // })
+          Cliente.create(cl)
+      })
 
 }).then( () =>{
 
   
     direcciones.forEach(async dr => await Direccion.create(dr))
-    // usuarios.forEach( async u => {
-    //     u.password_ad = await bcrypt.hash(u.password_ad, 10)
+    usuarios.forEach( async u => {
+        u.password_ad = await bcrypt.hash(u.password_ad, 10)
 
-    //     Usuario.create(u)
-    // })
+        Usuario.create(u)
+    })
 
 }).then(()=>{
   // direcciones.forEach(async dr => await Direccion.create(dr))
@@ -120,38 +120,3 @@ sequelize.sync({force: false}).then(()=>{
 
 
 
-//consulta completa pedidos
-/**
- * let pedido1 = Pedido.create({
-        hora_pd: '15:30',
-        fecha_pd: '07-10-2021',
-        precio_total_pd: '12000',
-        platos: [
-            { nombre_pl: 'Carne mongoliana', descripcion_pl:'Sabrosa carne mongoliana', 
-                agregado_pl:'sin algas', precio_pl: 6000 },
-            { nombre_pl: 'Pollo chiten', descripcion_pl:'exquisito pollo chitén', 
-                agregado_pl:'con todo', precio_pl: 6000 }
-        ]
-    },{
-        include: [Plato]
-    })
-
- */
-
-
-
-  // consulta de oro para recuperar pedidos
-  // const todasLasOrdenes = Pedido.findOne({
-  //   where:{
-  //     id: 2
-  //   },
-  //   include: [{
-  //     model: Plato, 
-  //     as:'platos',
-  //   through:{
-  //     model: Platos_Pedidos,
-  //     as:'platos_pedidos',
-  //     attributes:['cantidad_pp']
-  //   }
-  // }]
-  // }).then(r => console.log(r.toJSON().platos) )
